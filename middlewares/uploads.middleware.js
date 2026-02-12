@@ -1,9 +1,7 @@
 import multer from "multer";
 import path from "path";
 
-/**
- *  Storage configuration
- */
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -17,9 +15,7 @@ const storage = multer.diskStorage({
   }
 });
 
-/**
- * File type validation
- */
+
 const fileFilter = (req, file, cb) => {
   if (
     file.mimetype.startsWith("image/") ||
@@ -31,13 +27,11 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-/**
- *  Export multer instance
- */
+
 export const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB
+    fileSize: 5 * 1024 * 1024 
   }
 });

@@ -21,7 +21,7 @@ const artifactSchema = new mongoose.Schema(
       required: true
     },
     media: {
-      type: String // local file path
+      type: String 
     }
   },
   { timestamps: true }

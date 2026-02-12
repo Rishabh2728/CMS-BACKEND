@@ -43,10 +43,8 @@ export const createArtifactService = async ({
 
 export const getArtifactsService = async ({ userId, role }) => {
   if (role === "ADMIN") {
-    // Admin sees everything
     return await Artifact.find().populate("author", "name email role");
   }
 
-  // Non-admin sees only their own artifacts
   return await Artifact.find({ author: userId });
 };
