@@ -2,6 +2,9 @@
 
 Node.js + Express backend for a CMS-style application with authentication, artifacts, likes, comments, chat, webhooks, and Socket.IO realtime messaging.
 
+## DEPLOYMENT LINK CHANGED (Previous deploy crashed)
+New link - https://cms-backend-1-lkbc.onrender.com
+
 ## Tech Stack
 
 - Node.js (ES Modules)
