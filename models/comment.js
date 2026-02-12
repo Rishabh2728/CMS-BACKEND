@@ -1,31 +1,24 @@
 import mongoose from "mongoose";
 
-const chatSchema = new mongoose.Schema(
+const commentSchema = new mongoose.Schema(
   {
-    thread: {
+    artifact: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Thread",
+      ref: "Artifact",
       required: true
     },
-
-    sender: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true
     },
-
-    message: {
+    text: {
       type: String,
       required: true,
       trim: true
-    },
-
-    isRead: {
-      type: Boolean,
-      default: false
     }
   },
   { timestamps: true }
 );
 
-export default mongoose.model("Chat", chatSchema);
+export default mongoose.model("Comment", commentSchema);
