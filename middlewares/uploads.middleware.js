@@ -1,42 +1,43 @@
-import fs from "fs";
-import path from "path";
 import multer from "multer";
+import path from "path";
 
-const uploadDir = "uploads";
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
+/**
+ *  Storage configuration
+ */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadDir);
+    cb(null, "uploads/");
   },
+
   filename: (req, file, cb) => {
-    const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const uniqueName =
+      Date.now() + "-" + Math.round(Math.random() * 1e9);
+
     cb(null, uniqueName + path.extname(file.originalname));
   }
 });
 
-const allowedMimeTypes = new Set([
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "application/pdf"
-]);
-
+/**
+ * File type validation
+ */
 const fileFilter = (req, file, cb) => {
-  if (allowedMimeTypes.has(file.mimetype)) {
+  if (
+    file.mimetype.startsWith("image/") ||
+    file.mimetype === "application/pdf"
+  ) {
     cb(null, true);
-    return;
+  } else {
+    cb(new Error("Only images or PDFs allowed"), false);
   }
-
-  cb(new Error("Only JPEG, PNG, WEBP images and PDF files are allowed"));
 };
 
-const upload = multer({
+/**
+ *  Export multer instance
+ */
+export const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 10 * 1024 * 1024 }
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB
+  }
 });
-
-export default upload;
