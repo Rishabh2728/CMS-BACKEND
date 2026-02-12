@@ -1,13 +1,14 @@
 import express from "express";
+
 const router = express.Router();
 
 router.post("/test", (req, res) => {
-    console.log("GitHub Webhook recieved");
-    console.log(req.body);
+  console.log("GitHub Webhook Received");
+  console.log(req.body);
 
-    res.status(200).json({ recieved: true});
+  res.status(200).json({ received: true });
 
-    res.json({ recieved: true});
+  res.json({ received: true });
 });
 
 export default router;
