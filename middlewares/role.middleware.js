@@ -1,20 +1,16 @@
 export const authorizeRoles = (...allowedRoles) => {
-  const normalized = new Set(allowedRoles.map((role) => String(role).toUpperCase()));
-
   return (req, res, next) => {
-    const role = req.user?.role ? String(req.user.role).toUpperCase() : null;
-
-    if (!role) {
+    if (!req.user || !req.user.role) {
       return res.status(403).json({
         success: false,
-        message: "Forbidden: Role missing"
+        message: "Access denied"
       });
     }
 
-    if (!normalized.has(role)) {
+    if (!allowedRoles.includes(req.user.role)) {
       return res.status(403).json({
         success: false,
-        message: "Forbidden: Insufficient role"
+        message: "You do not have permission to perform this action"
       });
     }
 
