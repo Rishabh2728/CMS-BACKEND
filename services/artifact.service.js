@@ -15,4 +15,19 @@ export const createArtifactService = async ({
         author: userId
     });
     return artifact;
+
+
+    let mediaUrl = null
+    if(filePath){
+        const uploadResult = await cloudinary.uploader.upload(
+            filePath,
+            {
+                folder: "cms-artifacts"
+            }
+        );
+
+        mediaUrl = uploadResult.secure_url;
+
+        // FileSystem.un
+    }
 }   

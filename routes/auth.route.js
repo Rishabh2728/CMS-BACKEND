@@ -4,6 +4,7 @@ import {
   verifySignupOtp,
   login
 } from "../controllers/auth.controller.js";
+import upload from "../middlewares/uploads.middleware.js";
 
 const router = express.Router();
 
@@ -15,7 +16,14 @@ const router = express.Router();
 router.post("/signup/initiate", initiateSignup);
 
 // Step 2: Verify OTP and create user
-router.post("/signup/verify", verifySignupOtp);
+router.post(
+  "/signup/verify",
+  upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "pdf", maxCount: 1 }
+  ]),
+  verifySignupOtp
+);
 router.post("/login", login);
 
 export default router;
