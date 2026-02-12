@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import User from "../models/users.js";
 import OTP from "../models/otp.js";
 import { generateOTP } from "../utils/generateOtp.js";
-// import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 /**
  * Initiate signup by generating OTP
  */

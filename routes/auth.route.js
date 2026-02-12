@@ -4,7 +4,7 @@ import {
   verifySignupOtp,
   login
 } from "../controllers/auth.controller.js";
-import upload from "../middlewares/uploads.middleware.js";
+import { apiLimiter } from "../middlewares/rateLimiter.middleware.js";
 
 const router = express.Router();
 
@@ -13,17 +13,10 @@ const router = express.Router();
  */
 
 // Step 1: Initiate signup (generate OTP)
-router.post("/signup/initiate", initiateSignup);
+router.post("/signup/initiate", apiLimiter ,initiateSignup);
 
 // Step 2: Verify OTP and create user
-router.post(
-  "/signup/verify",
-  upload.fields([
-    { name: "image", maxCount: 1 },
-    { name: "pdf", maxCount: 1 }
-  ]),
-  verifySignupOtp
-);
+router.post("/signup/verify", verifySignupOtp);
 router.post("/login", login);
 
 export default router;
